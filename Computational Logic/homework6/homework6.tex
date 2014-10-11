@@ -1,0 +1,195 @@
+\documentclass{article}
+\input{503macros.tex}
+
+\title{CSC 503 Homework Assignment 6}
+\author{Due October 1, 2014}
+\date{September 24, 2014}
+
+\begin{document}
+\maketitle
+
+\noindent
+The algorithm presented in lecture to calculate the most general
+unifier of a set $S$ consists of the following steps.
+\begin{itemize}
+\item Step 0:
+  \begin{itemize}
+  \item Set $S_0 = S$
+  \item Set $\sigma_0 = \epsilon$
+  \end{itemize}
+
+\item Step $k+1$:
+    \begin{itemize}
+    \item If $|S_k| = 1$, return $\sigma_0\cdots\sigma_k$
+    \item If the disagreement set $D(S_k)$ contains both a variable
+      $v$ and a term $t$ in which $v$ \emph{does not occur}, then
+      \begin{itemize}
+      \item Choose least such pair
+      \item Set $\sigma_{k+1} = \{ t/v \}$
+      \item Set $S_{k+1} = S_k \sigma_{k+1}$
+      \item Proceed to step $k+2$
+      \end{itemize}
+    \item Otherwise, announce that $S$ has no unifier
+    \end{itemize}
+  \end{itemize}
+
+\begin{enumerate}
+
+\item Apply the unification algorithm to each of the following sets.
+  For each set, at each step $i$, show (a) the disagreement of $S_i$,
+  (b) the substitution $\sigma_i$ if there is one, or an explanation
+  why there is no unifying substitution, (c) the result $S_{i+1}$ of
+  applying $\sigma_i$ to $S_i$.  If the set unifies, show also (d) the
+  overall substitution $\sigma_0 \dots \sigma_k$ expressed as a single
+  substitution, not as a composition, and (e) the formula resulting
+  from applying the most general unifier to the expressions in the
+  set.
+
+  In the following expressions, assume that $a,b,c$ are constant
+  symbols, $f,g,h$ are function symbols, $P,Q$ are predicate symbols,
+  and $u,v,w,x,y,z$ are variable symbols.
+
+  \begin{enumerate}
+  \item {[25 points]}
+    $S = \{ P(f(x),y), P(y,f(z)) \}$
+    \begin{answer}
+		Initializing $\sigma_0$ to $\{\}$
+		
+		$S_0 = \{ P(f(x),y), P(y,f(z)) \}$
+		
+		$D(S_0) = \{f(x), y\}$
+		\bigskip
+		
+		$\sigma_1 = \{f(x)/y\}$
+		
+		$S_1 = \{ P(f(x),f(x)), P(f(x),f(z)) \}$
+		
+		$D(S_1) = \{x, z\}$
+		\bigskip
+		
+		$\sigma_2 = \{x/z\}$
+
+		$S_2 = \{ P(f(x), f(x))\}$
+
+		$|S_2| = 1$		
+		\bigskip
+		
+		$\sigma = \sigma_0 \cdot{} \sigma_1 \cdot{} \sigma_2$
+		
+		$\sigma = \{\} \cdot{} \{f(x)/y\} \cdot{} \{x/z\}$
+		
+		$\sigma = \{f(x)/y\} \cdot{} \{x/z\}$
+		
+		$\sigma = \{f(x)/y, x/z\}$
+		
+		Unification is feasible for above $\sigma$.
+    \end{answer}
+    
+  \item {[25 points]}
+    $S = \{ P(f(x),f(f(y))), P(f(y),f(g(z))) \}$
+    
+    \begin{answer}
+    	Initializing $\sigma_0$ to $\{\}$
+    	
+    	$S_0 = \{ P(f(x),f(f(y))), P(f(y),f(g(z))) \}$
+    	
+    	$D(S_0) = \{ x, y\}$
+    	\bigskip
+    	
+    	$\sigma_1 = \{x/y\}$
+    	
+    	$S_1 = \{ P(f(x),f(f(x))), P(f(x),f(g(z))) \}$
+    	
+    	$D(S_1) = \{ f(x), g(z)\}$
+    	
+    	There is no substitution for making 'f' and 'g' equal and hence we cannot
+    	unify these formulas.
+    	\bigskip
+    	
+    	Unification is not feasible.
+    \end{answer}
+
+  \item {[25 points]}
+    $S = \{ P(x,f(f(x))), P(y,y) \}$
+
+	\begin{answer}
+		Initializing $\sigma_0$ to $\{\}$
+		
+		$S_0 = \{ P(x,f(f(x))), P(y,y) \}$
+		
+		$D(S_0) = \{x, y\}$
+		\bigskip
+		
+		$\sigma_1 = \{x/y\}$
+		
+		$S_1 = \{ P(x,f(f(x))), P(x,x) \}$
+		
+		$D(S_1) = \{x, f(f(x))\}$
+		
+		No substitution is possible for this as we cannot substitute $f(f(x))$ for $x$
+		as $f(f(x))$ contains $x$.
+		\bigskip
+		
+		Unification is not feasible.
+		
+	\end{answer}
+  \item {[25 points]}
+    $S = \{ Q(f(g(v),a),h(w,b)), Q(f(x,y),h(w,w)), Q(f(g(v),a),h(v,b)) \}$
+    
+    \begin{answer}
+    	Initializing $\sigma_0$ to $\{\}$
+    	
+    	$S_0 = \{ Q(f(g(v),a),h(w,b)), Q(f(x,y),h(w,w)), Q(f(g(v),a),h(v,b)) \}$
+    	
+    	$D(S_0) = \{ g(v), x\}$
+    	\bigskip
+    	
+    	$\sigma_1 = \{ g(v)/x \}$
+    	
+    	$S_1 = \{ Q(f(g(v),a),h(w,b)), Q(f(g(v),y),h(w,w)), Q(f(g(v),a),h(v,b)) \}$
+    	
+    	$D(S_1) = \{ a, y\}$
+    	\bigskip
+    	
+    	$\sigma_2 = \{ a/y \}$
+    	
+    	$S_2 = \{ Q(f(g(v),a),h(w,b)), Q(f(g(v),a),h(w,w)), Q(f(g(v),a),h(v,b)) \}$
+    	
+    	$D(S_2) = \{ w, v\}$
+    	\bigskip
+    	
+    	$\sigma_3 = \{ v/w \}$
+    	
+    	$S_3 = \{ Q(f(g(v),a),h(v,b)), Q(f(g(v),a),h(v,v))) \}$
+    	
+    	$D(S_3) = \{ v, b\}$
+    	\bigskip
+    	
+    	$\sigma_5 = \{ b/v \}$
+    	
+    	$S_5 = \{ Q(f(g(b),a),h(b,b))) \}$
+    	
+    	$|S_5| = 1$
+    	\bigskip
+    	
+    	$\sigma = \sigma_0 \cdot{} \sigma_1 \cdot{} \sigma_2 \cdot{} \sigma_3
+    	\cdot{} \sigma_4$
+		
+		$\sigma = \{\} \cdot{} \{g(v)/x\} \cdot{} \{ a/y \} \cdot{} \{v/w \} \cdot{}
+		\{ b/v \}$
+		
+		$\sigma = \{g(v)/x\} \cdot{} \{ a/y \} \cdot{} \{v/w \} \cdot{} \{ b/v \}$
+		
+		$\sigma = \{g(v)/x, a/y \} \cdot{} \{v/w \} \cdot{} \{ b/v \}$
+		
+		$\sigma = \{g(v)/x, a/y, v/w \} \cdot{} \{ b/v \}$
+		
+		$\sigma = \{g(b)/x, a/y, b/w, b/v \}$
+		\bigskip
+		
+		Unification is feasible using the above $\sigma$.	    	
+    \end{answer}
+  \end{enumerate}
+
+\end{enumerate}
+\end{document}

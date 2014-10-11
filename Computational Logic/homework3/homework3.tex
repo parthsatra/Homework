@@ -1,0 +1,206 @@
+\documentclass{article}
+\input{503macros.tex}
+
+\title{CSC 503 Homework Assignment 3}
+\author{Due September 15, 2014}
+\date{September 8, 2014}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+
+\item {[20 points]} Construct a formula $\phi$ in \textbf{DNF} based on
+  the following truth table:
+  \begin{center}
+    \begin{tabular}{cc|c}
+      $p$ & $q$ & $\phi$ \\ \hline
+      T & T & F \\
+      T & F & T \\
+      F & T & T \\
+      F & F & T \\
+    \end{tabular}
+  \end{center}
+  \begin{answer}
+  	From the above truth tables we can derive the DNF with following steps
+  	\begin{enumerate}
+  	  \item Rows with truth values '$T$' are $2, 3, 4$.
+  	  \item The formula $\phi$ can be represented in DNF as $(Row2 \lor Row3 \lor
+  	  Row4)$ which means that except for these there can be no other values as $T$.
+  	  \item Each Row can be represented by the corresponding values of the
+  	  literals. So the formula becomes $\phi : (p \land \neg q) \lor (\neg p
+  	  \land q) \lor (\neg p \land \neg q)$
+	\end{enumerate}
+	
+	Thus the DNF for the given truth table is $(p \land \neg q) \lor (\neg p
+  	  \land q) \lor (\neg p \land \neg q)$
+  \end{answer}
+
+\item {[20 points]} Construct a formula $\phi$ in \textbf{CNF} based on
+  the following truth table:
+  \begin{center}
+    \begin{tabular}{ccc|c}
+      $p$ & $q$ & $r$ & $\phi$ \\ \hline
+      T & T & T & T\\
+      T & T & F & T\\
+      T & F & T & F\\
+      T & F & F & F\\
+      F & T & T & T\\
+      F & T & F & F\\
+      F & F & T & F\\
+      F & F & F & T\\
+    \end{tabular}
+  \end{center}
+  \begin{answer}
+  	\begin{enumerate}
+  		\item Rows with truth values $F$ are $3, 4, 6, 7$
+  		\item The formula $\phi$ can be represented in CNF as $(\neg Row3 \land
+  		\neg Row4 \land \neg Row6 \land \neg Row7)$ which means that except for the
+  		false value of the rows $3, 4, 6, 7$ others are $T$.
+  		\item Each Row can be represented by the corresponding values of the
+  		literals. So the formula becomes $\phi : (\neg (p \land \neg q \land r)
+  		\land \neg(p \land \neg q \land \neg r) \land \neg(\neg p \land q \land
+  		\neg r) \land \neg(\neg p \land \neg q \land r))$
+  		\item Reducing the above formula using De'Morgans Law we get $\phi: ((\neg
+  		p \lor q \lor \neg r) \land (\neg p \lor q \lor r) \land (p \lor \neg q
+  		\lor r) \land (p \lor q \lor \neg r))$
+  	\end{enumerate}
+  	
+  	Thus the CNF for the given truth table is $((\neg
+  		p \lor q \lor \neg r) \land (\neg p \lor q \lor r) \land (p \lor \neg q
+  		\lor r) \land (p \lor q \lor \neg r))$
+  \end{answer}
+
+  \item {[40 points]} Apply algorithm HORN from page 66 of the textbook
+    to the following Horn formula.
+  \begin{displaymath}
+    \begin{array}{ll}
+    (p \land q \land w \implies \bot) &\land \\
+    (t \implies \bot) &\land \\
+    (r \implies p) &\land \\
+    (\top \implies r) &\land \\
+    (\top \implies q) &\land \\
+    (r \land u \implies w) &\land \\
+    (u \implies s) &\land \\
+    (\top \implies u)
+    \end{array}
+  \end{displaymath}
+Your answer should list propositional letters in the order in which
+they are marked as well as giving the overall answer.
+
+\begin{answer}
+	\begin{enumerate}
+	  \item Mark all occurances of $\top$.
+	  	
+	  \item Mark $r, q, u$ from $(\top \implies r), (\top \implies q),
+	  (\top \implies u)$
+	  
+		\begin{displaymath}
+    		\begin{array}{ll}
+   				(p \land \textbf{q} \land w \implies \bot) &\land \\
+    			(t \implies \bot) &\land \\
+    			(\textbf{r} \implies p) &\land \\
+    			(\top \implies \textbf{r}) &\land \\
+    			(\top \implies \textbf{q}) &\land \\
+    			(\textbf{r} \land \textbf{u} \implies w) &\land \\
+    			(\textbf{u} \implies s) &\land \\
+    			(\top \implies \textbf{u})
+    		\end{array}
+  		\end{displaymath}
+  		\item Mark $p, w, s$ from $(r \implies p), (r \land u \implies w), (u
+  		\implies s)$
+  		
+		\begin{displaymath}
+    		\begin{array}{ll}
+   				(\textbf{p} \land \textbf{q} \land \textbf{w} \implies \bot) &\land \\
+    			(t \implies \bot) &\land \\
+    			(\textbf{r} \implies \textbf{p}) &\land \\
+    			(\top \implies \textbf{r}) &\land \\
+    			(\top \implies \textbf{q}) &\land \\
+    			(\textbf{r} \land \textbf{u} \implies \textbf{w}) &\land \\
+    			(\textbf{u} \implies \textbf{s}) &\land \\
+    			(\top \implies \textbf{u})
+    		\end{array}
+  		\end{displaymath}
+  		
+  		\item Mark $\bot$ from $(\textbf{p} \land \textbf{q} \land \textbf{w}
+  		\implies \bot)$
+  		
+	\end{enumerate}
+	
+	The order order of propositional letters is $r, q, u, p, w, s, \bot$. 
+	Since we have marked $\bot$, the horn formula is \textbf{'Unsatisfiable'}.
+\end{answer}
+
+\item {[20 points]}  Explain in what sense the SAT solving
+  technique, as presented in lecture and the book, can be used to
+  check whether formulas are tautologies.
+  
+  \begin{answer}
+  	SAT solving technique is an extension of the HORN Marking algorithm where we
+  	can compute the contraints on the subformulas of the general formula $\phi$
+  	that makes $\phi$ true.
+  	
+  	There are multiple SAT solving techniques. One that solves in linear time of
+  	the number to nodes in a directed acyclic graph(DAG) of the formula $phi$ and
+  	the other one which is an enhancement to this which solves in cubic time.
+  	
+  	\textbf{Linear Solver}
+  	We use the marking algorithm on the parse tree of the formula. Before running
+  	the algorithm we transform the formula into the semantically equivalent form
+  	having same propositional atoms. The algorithm to check whether formulas are
+  	as follows:
+  	
+  	\begin{enumerate}
+  	  \item Take the formula $\phi$ we want to check for tautology.
+  	  \item Convert the formula $\phi$ using the following transformations
+  	  	\begin{enumerate}
+  	  	  \item $T(p) = p$
+  	  	  \item $T(\neg \phi) = \neg T(\phi)$
+  	  	  \item $T(\phi_{1} \land \phi_{2}) = T(\phi_{1}) \land T(\phi_{2})$
+  	  	  \item $T(\phi_{1} \lor \phi_{2}) = \neg(\neg T(\phi_{1}) \land \neg
+  	  	  T(\phi_{2}))$
+  	  	  \item $T(\phi_{1} \implies \phi_{2}) = \neg (T(\phi_{1}) \land \neg
+  	  	  T(\phi_{2}))$
+  	  	\end{enumerate}
+  	  \item Now we can only prove if the formula is tautology if we can prove
+  	  that its negation is never satisfiable. So consider the $\neg \phi$ as the
+  	  new formula and we would like to see if that is satisfiable.
+  	  \item Construct the parse tree for the formula $\neg \phi$
+  	  \item Consider the root node of the tree to be true and then apply the
+  	  following rules to find out the corresponding contraints of the child nodes.
+  	  \begin{enumerate}
+  	    \item Negation Laws: If the current node is $\neg$ and has the value $p$
+  	    then child node should have the constraint $\neg p$ i.e. if the current
+  	    node has constraint $T$ then the child node will have $\neg T = F$ and
+  	    vice versa.
+  	    \item Conjunction Laws: In this case if the current node is $T$ then
+  	    each child node will have a constraint $T$. But if the current node is
+  	    $F$ then atleast one of the child must have $F$. So anyone of the child
+  	    can be false. 
+  	  \end{enumerate}
+  	  \item Continue doing the expansion till we reach the leaf nodes or reach a
+  	  contradiction. If we reach the contradiction then we say that the formula
+  	  is not satisfiable. Which means $\neg \phi$ is not satisfiable and thus
+  	  $\phi$ must be a tautology. 
+  	  However if the leaf node is reached then we go bottom-up tp verify whether
+  	  all the contraints in conjunction hold good and the root node is still in
+  	  $T$ state. If this is the case then we say that $\neg \phi$ is satisfiable
+  	  and hence $\phi$ is not a tautology.
+  	  
+  	\end{enumerate}
+  	
+  	\textbf{Note:} In the above algorithm we might reach a state where we have
+  	  not reached even the contradiction nor the leaf node. In this case we will
+  	  have some free (not constrained) nodes. In such cases assume temperory
+  	  values for these nodes. Say first time we assume $T$ for the node and we
+  	  reach a contradiction them we assume the permanent value of that node as
+  	  $\neg T = F$ and re- compute the constraint. If we reach a contradiction
+  	  again then we can conclude that $\neg \phi$ is not satisfiable. Otherwise
+  	  it is satisfiable and $\phi$ is not a tautology. This extension of the
+  	  first algorithm takes cubic time to compute and hence is called a
+  	  \textbf{cubic solver}.
+  \end{answer}
+
+\end{enumerate}
+\end{document}

@@ -1,0 +1,224 @@
+\documentclass{article}
+\input{503macros.tex}
+
+\title{CSC 503 Homework Assignment 1}
+\author{Due September 8, 2014}
+\date{August 25, 2014}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+
+\item Use $\neg$, $\implies$, $\land$, and $\lor$ to express the
+  following declarative sentences in propositional logic over atoms
+  $p$, $q$, $r$, etc.  First state what your propositional atoms mean
+  in self-contained English sentences, then give the translation of
+  the sentence.
+
+  \begin{enumerate}
+
+  \item {[10 points]} If Alice flew to San Francisco, then Alice was
+    not in Raleigh yesterday.
+
+	\begin{answer}
+	
+		$p$ : Alice flew to San Francisco.
+		
+		$q$ : Alice was in Raleigh yesterday.
+		
+		$p \implies \neg q$	
+		
+	\end{answer}	
+
+  \item {[10 points]} Either Bob called his father after he became
+    sunburned or Bob's mother called him.
+    
+    \begin{answer}
+    	
+    	$p$ : Bob Called his father after he became sunburned
+    	
+    	$q$ : Bob's mother called him (Bob's father).
+    	
+    	$p \lor q$
+    	
+    \end{answer}
+
+  \item {[10 points]} Carol's pet zebra is black and white.
+  
+  	\begin{answer}
+  		
+  		$p$ : Carol's pet zebra is black
+  		
+  		$q$ : Carol's pet zebra is white
+  		
+  		$p \land q$
+  		
+  	\end{answer}
+
+  \end{enumerate}
+
+\item {[10 points]} Why is the expression $p \lor q \land
+  r$ problematic?  Justify your answer.
+  
+  \begin{answer}
+  
+  	The given expression is problematic since it can be interpreted in
+  	multiple ways and both the interpretations have different truth values as
+  	shown below.
+  	
+  	$1$. $(p \lor q) \land r$
+  
+  	\begin{displaymath}
+  		\begin{array}[t]{|c|c|c|c|c|} \hline
+    		p & q & r & (p \lor q) & (p \lor q) \land r \\ \hline\hline
+    		T & T & T & T & T \\ \hline
+    		T & T & F & T & F \\ \hline
+    		T & F & T & T & T \\ \hline
+  	 		T & F & F & T & F \\ \hline
+  	 		F & T & T & T & T \\ \hline
+    		F & T & F & T & F \\ \hline
+    		F & F & T & F & F \\ \hline
+  	 		F & F & F & F & F \\ \hline
+  		\end{array}
+  	\end{displaymath}
+  	
+  	$2$. $p \lor (q \land r)$
+  	
+  	\begin{displaymath}
+  		\begin{array}[t]{|c|c|c|c|c|} \hline
+    		p & q & r & (q \land r) & p \lor (q \land r) \\ \hline\hline
+    		T & T & T & T & T \\ \hline
+    		T & T & F & F & T \\ \hline
+    		T & F & T & F & T \\ \hline
+  	 		T & F & F & F & T \\ \hline
+  	 		F & T & T & T & T \\ \hline
+    		F & T & F & F & F \\ \hline
+    		F & F & T & F & F \\ \hline
+  	 		F & F & F & F & F \\ \hline
+  		\end{array}
+  	\end{displaymath}
+  	
+  \end{answer}
+
+\item {[10 points]} Compute the complete truth table of
+  the formula $((p \implies p) \implies q) \implies q$.
+  
+  \begin{answer}
+  	
+  	Truth table of the formula $((p \implies p) \implies q) \implies q$ is as
+  	follows
+  	
+  	\begin{displaymath}
+  		\begin{array}[t]{|c|c|c|c|c|} \hline
+    		p & q & p \implies p & (p \implies p) \implies q & 
+    		((p \implies p) \implies q) \implies q \\ \hline\hline 
+    		T & T & T & T & T \\ \hline 
+    		T & F & T & F & T \\ \hline 
+    		F & T & T & T & T \\ \hline 
+    		F & F & T & F & T \\ \hline
+  		\end{array}
+  	\end{displaymath}
+  	
+  	
+  \end{answer}
+
+\item {[10 points]} Show that the sequent $(p \lor q) \implies r, \neg
+  r \land \neg q \turn \neg p \implies q$ is not valid by finding a
+  valuation in which the truth values of the formulas to the left of
+  $\turn$ are T and the truth value of the formula to the right of
+  $\turn$ is F.
+
+	\begin{answer}
+
+		This sequent can be proved wrong using the natural deduction as shown below
+		
+		\[
+			\begin{nd}
+				\hypo{1} {(p \lor q) \implies r} \premise{}
+				\hypo{2} {\neg r \land \neg q} \premise{}
+				\have{3} {\neg r} \aeone {2}
+				\have{4} {\neg q} \aetwo {2}
+				\open
+					\hypo{5a} {p \lor q} \assumption{}
+					\have{5b} {r} \ie {1, 5a}
+					\have{5c} {\bot} \ne {3, 5b}
+				\close
+				\have{6} {\neg (p \lor q)} \ni {5a-5c}
+				\open
+					\hypo{7a} {p} \assumption{}
+					\have{7b} {p \lor q} \oione {7a}
+					\have{7c} {\bot} \ne {6, 7b}
+				\close
+				\have{8} {\neg p} \ni {7a-7c}
+				\open
+					\hypo{9a} {\neg p \implies q} \assumption{}
+					\have{9b} {q} \ie {8, 9a}
+					\have{9c} {\bot} \ne {4, 9b}
+				\close
+				\have{10} {\neg (\neg p \implies q)} \ni {9a-9c}
+			\end{nd}
+		\]
+		
+		This shows that when premises $(p \lor q) \implies r, \neg
+  r \land \neg q$ are true then $\neg (\neg p \implies q)$ is also true. Hence
+  the expected conclusion $\neg p \implies q$ has to be false. Thus for an
+  instance, for a set of values of $(p, q, r)$ as $(T, T, T)$, the L.H.S. is of
+  the sequent is true and the R.H.S. is false. Also notice that this is only one
+  of the sample solution and the solution is not affected for any value of $r$.
+  
+	\end{answer}
+
+\item Prove the validity of the following sequents.  Use only the
+  basic rules of natural deduction (no derived rules).
+
+  \begin{enumerate}
+  \item {[20 points]} $\turn (p \lor q) \implies (s \implies ((p \lor
+    q) \land s))$
+    
+    \begin{answer}
+    	
+    	\[
+    		\begin{nd}
+    			\open
+    				\hypo{1a} {p \lor q} \assumption{}
+    				\open
+    					\hypo{1ai} {s} \assumption{}
+    					\have{1aii} {(p \vee q) \land s} \ai {1a, 1ai}
+    				\close	
+    				\have{1b} {s \implies ((p \lor q) \land s)} \ii {1ai-1aii}
+    			\close
+    			\have{2} {(p \lor q) \implies (s \implies ((p \lor q) \land s))} \ii
+    			{1a-1b}
+    		\end{nd}
+    	\]
+    \end{answer}
+    
+  \item {[20 points]} $q \implies \neg p \turn ((\neg p \land q)
+    \implies q) \land (q \implies (\neg p \land q)) $
+    
+    \begin{answer}
+    
+    	\[
+    		\begin{nd}
+    			\hypo{1} {q \implies \neg p} \premise{}
+    			\open
+    				\hypo{2a} {\neg p \land q} \assumption{}
+    				\have{2b} {q} \aetwo {2a}
+    			\close
+    			\have{3} {(\neg p \land q) \implies q} \ii {2a-2b}
+    			\open
+    				\hypo{4a} {q} \assumption{}
+    				\have{4b} {\neg p} \ie {1,4a}
+    				\have{4c} {\neg p \land q} \ai {4a,4b}
+    			\close
+    			\have{5} {q \implies (\neg p \land q)} \ii {4a-4c}
+  				\have{6} {((\neg p \land q) \implies q) \land (q \implies (\neg p \land
+  				q))} \ai {3,5}
+    		\end{nd}
+    	\]
+    \end{answer}
+  \end{enumerate}
+
+\end{enumerate}
+\end{document}

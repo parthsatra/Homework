@@ -1,0 +1,67 @@
+\documentclass{article}
+\input{503macros.tex}
+
+\title{CSC 503 Homework Assignment 7}
+\author{Due October 6, 2014}
+\date{September 29, 2014}
+
+\begin{document}
+\maketitle
+
+\noindent
+In the following expressions, assume that $a,b,c$ are constant
+symbols, $f,g,h,i,j,k$ are function symbols, $P,Q$ are predicate symbols,
+and $u,v,w,x,y,z$ are variable symbols.
+
+\vspace*{1pc}
+
+\noindent
+{[100 points]} Give a resolution refutation of the following set of
+clauses.  At each step, indicate the literals being resolved together
+and the substitutions being made.  You may find it helpful to
+standardize variables apart in each clause and at each step.
+  \begin{enumerate}
+  \item $\{ \neg R(x,y), S(y) \}$
+  \item $\{ \neg R(x,y), I(x,y) \}$
+  \item $\{ \neg S(y), \neg I(x,y), R(x,y) \}$
+  \item $\{ \neg I(x,y), I(h(u,x),m(u,y)) \}$
+  \item $\{ \neg S(y),  S(m(x,y)) \}$
+  \item $\{ R(g(x),n(g(x))) \}$
+  \item $\{ \neg R(h(f(x),g(x)),y), R(x,y) \}$
+  \item $\{ \neg R(a,y) \}$
+  \item $\{ S(b) \}$
+  \item $\{ I(b,b) \}$
+  \end{enumerate}
+
+	\begin{answer}
+		\textbf{Resolution} 
+		
+		\begin{enumerate}
+		  \item $\{ \neg R(x_1,y_1), S(y_1) \}$
+		  \item $\{ \neg R(x_2,y_2), I(x_2,y_2) \}$
+		  \item $\{ \neg S(y_3), \neg I(x_3,y_3), R(x_3,y_3) \}$
+		  \item $\{ \neg I(x_4,y_4), I(h(u,x_4),m(u,y_4)) \}$
+		  \item $\{ \neg S(y_5),  S(m(x_5,y_5)) \}$
+		  \item $\{ R(g(x_6),n(g(x_6))) \}$
+		  \item $\{ \neg R(h(f(x_7),g(x_7)),y_7), R(x_7,y_7) \}$
+		  \item $\{ \neg R(a,y_8) \}$
+		  \item $\{ S(b) \}$
+		  \item $\{ I(b,b) \}$
+		  \item $\{ \neg R(h(f(a), g(a)), y_7) \}$ From $8 + 7$. Substituting
+		  $\{a/x_7, y_7/y_8\}$
+		  \item $\{ \neg S(y_3), \neg I(h(f(a), g(a)), y_3)\}$ From $11 + 3$.
+		  Substituting $\{h(f(a),g(a))/x_3, y_3/y_7\}$
+		  \item $\{ \neg S(m(f(a), y_4)), \neg I(g(a), y_4)\}$ From $12 + 4$.
+		  Substituting $\{f(a)/u, g(a)/x_4, m(f(a),y_4)/y_3\}$
+		  \item $\{ \neg S(y_4), \neg I(g(a), y_4)\}$ From $13 + 5$. Substituting
+		  $\{g(a)/x_5, y_4/y_5\}$
+		  \item $\{ \neg S(y_4), \neg R(g(a), y_4)\}$ From $14 + 2$. Substituting $\{
+		  g(a)/x_2, y_4/y_2\}$
+		  \item $\{ \neg S(n(g(a)))\}$ From $15 + 6$. Substituting $\{a/x_6,
+		  n(g(a))/y_4\}$
+		  \item $\{ \neg R(x_1, n(g(a)))\}$ From $16 + 1$. Substituting $\{
+		  n(g(a))/y_1\}$
+		  \item $\square$ From $17 + 6$. Substituting $\{a/x_6, g(a)/x_1\}$
+		 \end{enumerate}
+	\end{answer}
+\end{document}

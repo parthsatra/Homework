@@ -1,0 +1,138 @@
+\documentclass{article}
+\input{503macros.tex}
+
+\title{CSC 503 Homework Assignment 4}
+\author{Due September 17, 2014}
+\date{September 10, 2014}
+
+\begin{document}
+\maketitle
+
+
+In using the Fitch macros to typeset proofs in first order logic, one
+introduces a dummy variable $x$ by means of the command
+\verb+\open[x]+. 
+
+Unless directed otherwise, follow the convention of the text and
+assume that $a,b,c,d,e$ are constant symbols, $f,g,h$ are function
+symbols, and $u,v,x,y,z$ are variable symbols.
+
+
+\begin{enumerate}
+
+\item Let $c$ and $d$ be constants, $f$ a function symbol with one
+  argument, $g$ a function symbol with two arguments, $h$ a
+  function symbol with three arguments, and $P$ and $Q$ predicate
+  symbols with three arguments.  Indicate, for each of the following
+  strings, which strings are formulas in predicate logic, and specify
+  a reason for failure for strings which are not.
+  \begin{enumerate}
+  \item {[5 points]} $\forall x P(f(d),h(g(c,x),d,y),x)$
+  \begin{answer}
+  	This formula is a \textbf{valid} formula in predicate logic
+  \end{answer}
+  \item {[5 points]} $\forall x P(f(d),h(P(x,y,d),d,y),x)$
+  \begin{answer}
+  	This formula is \textbf{invalid} as $P(x,y,d)$ is not a term and all the
+  	paramters to the function must be a term.
+  \end{answer}
+  \item {[5 points]} $\forall x (Q(z,z,z) \implies P(z))$
+  \begin{answer}
+  	This formula is \textbf{invalid} formula in predicate logic since the
+  	predicate $P$ is incorrectly used with only one argument.
+  \end{answer}
+  \item {[5 points]} $\forall x \forall y (g(x,y) \implies P(x,y,x))$
+  \begin{answer}
+  	This formula is \textbf{invalid} formula as $g(x,y)$ is a term and is not a
+  	formula. Hence $\phi_! \implies \phi_2$ is a formula only when $\phi_1$ and
+  	$\phi_2$ are formulas.
+  \end{answer}
+  \item {[5 points]} $Q(c,d,c)$
+  \begin{answer}
+  	This formula is a \textbf{valid} formula in predicate logic
+  \end{answer}
+  \item {[5 points]} $\forall x \forall y P(x,x,x)$
+  \begin{answer}
+  	This formula is a \textbf{valid} formula in predicate logic
+  \end{answer}
+  \end{enumerate}
+
+\item Let $P$ be a predicate symbol with arity 2, and let $\phi$ be
+  the formula
+  \begin{displaymath}
+    \exists x (P(y,z) \land (\forall y (\neg P(y,x) \lor P(y,z))))
+  \end{displaymath}
+  \begin{enumerate}
+  \item {[5 points]} Indicate, for each occurrence of each variable in
+    $\phi$, whether that occurrence is free or bound.
+    \begin{answer}
+    	The variables in $\phi$ include $x, y$ and $z$.
+    	The highlighted variables in $\phi$ are free.
+    	
+    	\begin{displaymath}
+    		\exists x (P(\textbf{y},\textbf{z}) \land (\forall y (\neg P(y,x) \lor
+    		P(y,\textbf{z}))))
+  		\end{displaymath}
+  		
+    \end{answer}
+  \item {[5 points]} List all variables which occur free and bound in
+    $\phi$.
+    \begin{answer}
+    	The variables in $\phi$ include $x, y$ and $z$.
+    	The highlighted variables in $\phi$ are free and the rest of the occurences
+    	are bounded with $x$ bounded by $\exists x$ and $y$ on the right hand side
+    	by $\forall y$
+    	
+    	\begin{displaymath}
+    		\exists x (P(\textbf{y},\textbf{z}) \land (\forall y (\neg P(y,x) \lor
+    		P(y,\textbf{z}))))
+  		\end{displaymath}
+    \end{answer}
+  \item {[10 points]} Compute $\phi[t/x]$ for $t = g(f(g(y,y)),y)$.  Is
+    $t$ free for $x$ in $\phi$?
+    \begin{answer}
+    	$t$ is not free for $x$ in $\phi$ as there is no free $x$ in $\phi$ to be
+    	replaced by $t$. Thus $\phi[t/x]$ will remain $\phi$. 
+    \end{answer}
+  \item {[10 points]} Compute $\phi[t/y]$ for $t = g(f(g(y,y)),y)$ Is
+    $t$ free for $y$ in $\phi$?
+    \begin{answer}
+    	$t$ is free for $y$ in $\phi$ as there a free instance of $y$ which on
+    	replacement with $t$ does not bound it. 
+    	Thus we have,
+    	\begin{displaymath}
+ 		    \exists x (P(\textbf{g(f(g(y,y)),y)},z) \land (\forall y (\neg P(y,x)
+ 		    \lor P(y,z))))
+ 		\end{displaymath}
+    \end{answer}
+  \item {[10 points]} Compute $\phi[t/z]$ for $t = g(f(g(y,y)),y)$ Is
+    $t$ free for $z$ in $\phi$?
+    \begin{answer}
+    	$t$ is not free for $z$ in $\phi$ as when we replace $t$ for free
+    	instances of $z$ in $\phi$ we add additional bounding condition to the
+    	variable $y$ in $t$. 
+    \end{answer}
+  \end{enumerate}
+
+\item {[30 points]} Find a proof for $\forall x (P(x) \land Q(x))
+  \turn \forall x ( P(x) \implies Q(x))$.
+  \begin{answer}
+  	\[
+  		\begin{nd}
+  			\hypo{1} {\forall x (P(x) \land Q(x))} \premise{}
+  			\open[x_0]
+  				\have{2a} {P(x_0) \land Q(x_0)} \Ae {1}
+  				\open 
+  					\hypo{2bi} {P(x_0)} \assumption{}
+  					\have{2bii} {Q(x_0)} \aetwo {2a}
+  				\close
+				\have{2c} {P(x_0) \implies Q(x_0)} \ii {2bi-2bii}
+  			\close 
+  			\have{3} {\forall x (P(x) \implies Q(x))} \Ai {2a-2c}
+  		\end{nd}
+  	\]	
+  	
+  \end{answer}
+
+\end{enumerate}
+\end{document}
