@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Thu Oct 23 21:20:31 EDT 2014
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=fitchhr.sty
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=homework8.tex
+outputFile=homework8.pdf
+langSpell=en
+markDer=true
+srcDir=
