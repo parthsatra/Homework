@@ -1,4 +1,4 @@
-package ncsu.ai.assignment2;
+package ncsu.ai.prolog;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
