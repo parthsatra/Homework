@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  5 OCT 2014 00:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  23 OCT 2014 21:21
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -112,7 +112,8 @@ Package: amssymb 2013/01/14 v3.01 AMS font symbols
 \nd*hsep=\dimen113
 \ndindent=\dimen114
 \nd*n=\count100
-)) (./homework6.aux)
+))
+No file homework6.aux.
 \openout1 = `homework6.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
@@ -128,7 +129,6 @@ LaTeX Font Info:    ... okay on input line 8.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 8.
-
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
@@ -157,8 +157,8 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 
 (./homework6.aux) ) 
 Here is how much of TeX's memory you used:
- 1408 strings out of 493117
- 15648 string characters out of 6135433
+ 1406 strings out of 493117
+ 15620 string characters out of 6135433
  70782 words of memory out of 5000000
  4878 multiletter control sequences out of 15000+600000
  18049 words of font info for 50 fonts, out of 8000000 for 9000
