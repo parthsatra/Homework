@@ -1,0 +1,74 @@
+\documentclass{article}
+\input{503macros.tex}
+\usepackage{stmaryrd}
+
+\def\Sometime{\mathord{\mathsf{F}}}
+\def\Forever{\mathord{\mathsf{G}}}
+\def\Next{\mathord{\mathsf{O}}}
+\def\NextX{\mathord{\mathsf{X}}}
+\def\Until{\mathrel{\mathsf{U}}}
+\def\Release{\mathrel{\mathsf{R}}}
+\def\WeakUntil{\mathrel{\mathsf{W}}}
+\def\Before{\mathrel{\mathsf{B}}}
+\def\True{\mathord{\mathsf{true}}}
+\def\All{\mathord{\mathsf{A}}}
+\def\Exists{\mathord{\mathsf{E}}}
+\def\Every{\mathord{\mathsf{E}}}
+
+\def\True{\mathord{\mathtt{true}}}
+\def\False{\mathord{\mathtt{false}}}
+\def\If{\mathrel{\mathtt{if}}}
+\def\Else{\mathrel{\mathtt{else}}}
+\def\While{\mathrel{\mathtt{while}}}
+\def\IfElse#1#2#3{\If #1 \ \{ #2 \} \Else \{ #3 \}}
+\def\Whiledo#1#2{\While #1\ \{ #2 \}}
+\def\Hcond#1{\llparenthesis #1 \rrparenthesis}
+\def\Hoare#1#2#3{\Hcond{#1} \mathrel{#2} \Hcond{#3}}
+
+\def\parmodels{\mathrel{\models_{\textup{par}}}}
+\def\totmodels{\mathrel{\models_{\textup{tot}}}}
+\def\parturn{\mathrel{\turn_{\textup{par}}}}
+\def\totturn{\mathrel{\turn_{\textup{tot}}}}
+
+\title{CSC 503 Homework Assignment 11}
+\author{Due November 12, 2014}
+\date{November 5, 2014}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+
+\item {[100 points]} Show that $\parturn \Hoare{y = y_0 \land y \ge 0}{\hbox{Multi2}}{z = x \cdot y_0}$ is valid, where Multi2 is the
+  program
+  \begin{displaymath}
+    \begin{nd}
+      \have{} {\texttt{\textbf{z = 0;}}}   
+      \have{} {\texttt{\textbf{while (y != 0) \{}}}          
+      \have{} {\quad\texttt{\textbf{z = z + x;}}}                   
+      \have{} {\quad\texttt{\textbf{y = y - 1;}}}                   
+      \have{} {\texttt{\textbf{\}}}}                  
+    \end{nd}
+  \end{displaymath}
+\begin{answer}
+	\begin{displaymath}
+    \begin{nd}
+      \have{} {\Hcond{y = y_0 \land y \ge 0}} 
+      \have{} {\Hcond{0 = x \cdot (y_0 - y)}} \Implied{}
+      \have{} {\texttt{\textbf{z = 0;}}}   
+      \have{} {\Hcond{z = x \cdot (y_0 - y)}} \Assignment{}
+      \have{} {\texttt{\textbf{while (y != 0) \{}}}
+      \have{} {\Hcond{z = x \cdot (y_0 - y) \land (y != 0)}} \InvariantGuard{}
+      \have{} {\Hcond{z + x = x \cdot (y_0 - (y - 1))}} \Implied{}         
+      \have{} {\quad\texttt{\textbf{z = z + x;}}}          
+      \have{} {\Hcond{z = x \cdot (y_0 - (y - 1))}} \Assignment{}         
+      \have{} {\quad\texttt{\textbf{y = y - 1;}}}                   
+      \have{} {\Hcond{z = x \cdot (y_0 - y)}} \Assignment{}
+      \have{} {\texttt{\textbf{\}}}}
+      \have{} {\Hcond{z = x \cdot (y_0 - y) \land \neg (y != 0)}} \PartialWhile{}
+      \have{} {\Hcond{z = x \cdot y_0}} \Implied{}
+    \end{nd}
+  \end{displaymath}
+\end{answer}
+\end{enumerate}
+\end{document}

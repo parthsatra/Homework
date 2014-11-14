@@ -1,0 +1,119 @@
+\documentclass{article}
+\input{503macros.tex}
+\usepackage{stmaryrd}
+
+\def\Sometime{\mathord{\mathsf{F}}}
+\def\Forever{\mathord{\mathsf{G}}}
+\def\Next{\mathord{\mathsf{O}}}
+\def\NextX{\mathord{\mathsf{X}}}
+\def\Until{\mathrel{\mathsf{U}}}
+\def\Release{\mathrel{\mathsf{R}}}
+\def\WeakUntil{\mathrel{\mathsf{W}}}
+\def\Before{\mathrel{\mathsf{B}}}
+\def\True{\mathord{\mathsf{true}}}
+\def\All{\mathord{\mathsf{A}}}
+\def\Exists{\mathord{\mathsf{E}}}
+\def\Every{\mathord{\mathsf{E}}}
+
+\def\True{\mathord{\mathtt{true}}}
+\def\False{\mathord{\mathtt{false}}}
+\def\If{\mathrel{\mathtt{if}}}
+\def\Else{\mathrel{\mathtt{else}}}
+\def\While{\mathrel{\mathtt{while}}}
+\def\IfElse#1#2#3{\If #1 \ \{ #2 \} \Else \{ #3 \}}
+\def\Whiledo#1#2{\While #1\ \{ #2 \}}
+\def\Hcond#1{\llparenthesis #1 \rrparenthesis}
+\def\Hoare#1#2#3{\Hcond{#1} \mathrel{#2} \Hcond{#3}}
+
+\def\parmodels{\mathrel{\models_{\textup{par}}}}
+\def\totmodels{\mathrel{\models_{\textup{tot}}}}
+\def\parturn{\mathrel{\turn_{\textup{par}}}}
+\def\totturn{\mathrel{\turn_{\textup{tot}}}}
+
+\title{CSC 503 Homework Assignment 10}
+\author{Due November 10, 2014}
+\date{November 3, 2014}
+
+\begin{document}
+\maketitle
+
+In the following proofs about programs, use the natural deduction
+proof environment, the \verb+\Hcond+ macro, and the Hoare-logic
+justifications \verb+\Implied{}+, \verb+\Assignment{}+,
+\verb+\IfStatement{}+, \verb+\PartialWhile{}+, \\
+\verb+\InvariantGuard{}+, and \verb+\TotalWhile{}+ to present proofs
+of partial or total correctness.  If you are not using LaTeX, you can
+substitute double parentheses for the Hoare condition delimiters
+$\Hcond{~}$.  For example, we can rewrite the proof in Example 4.13.1
+on page 277 of the textbook as
+  \begin{displaymath}
+    \begin{nd}
+      \have{} {\Hcond{y = 5}}
+      \have{} {\Hcond{y + 1 = 6}}         \Implied{}
+      \have{} {\texttt{\textbf{x = y + 1;}}}   
+      \have{} {\Hcond{x = 6}}          \Assignment{}
+    \end{nd}
+  \end{displaymath}
+  The standard stmaryrd package is also used in these macros.
+
+\begin{enumerate}
+
+\item {[40 points]} Use the proof rule for assignment and arithmetic
+  entailment as appropriate to show the validity of
+  \begin{displaymath}
+    \parturn \Hoare{\top}{P}{y = 2x}.
+  \end{displaymath}
+where $P$ is the program 
+  \begin{displaymath}
+    \begin{nd}
+      \have{} {\texttt{\textbf{y = z;}}}   
+      \have{} {\texttt{\textbf{y = x + x;}}}          
+    \end{nd}
+  \end{displaymath}
+  \begin{answer}
+  	\begin{displaymath}
+    \begin{nd}
+      \have{} {\Hcond{\top}}
+      \have{} {\Hcond{x + x = 2x}} \Implied{}
+      \have{} {\texttt{\textbf{y = z;}}}   
+      \have{} {\Hcond{x + x = 2x}} \Assignment{}
+      \have{} {\texttt{\textbf{y = x + x;}}}
+      \have{} {\Hcond{y = 2x}} \Assignment{}          
+    \end{nd}
+  \end{displaymath}
+  \end{answer}
+
+\newpage
+\item {[60 points]} Prove the validity of the sequent $\parturn
+  \Hoare{\top}{Q}{z = \min(x,y)}$ where $\min(x,y)$ is the smallest
+  number of $x$ and $y$ and the code of $Q$ is given by
+  \begin{displaymath}
+    \begin{nd}
+      \have{} {\texttt{\textbf{if (x < y) \{}}}   
+      \have{} {\quad\texttt{\textbf{z = x;}}}          
+      \have{} {\texttt{\textbf{\} else \{}}}                   
+      \have{} {\quad\texttt{\textbf{z = y;}}}   
+      \have{} {\texttt{\textbf{\}}}}                  
+    \end{nd}
+  \end{displaymath}
+  \begin{answer}
+  \begin{displaymath}
+    \begin{nd}
+      \have{} {\Hcond{\top}}
+      \have{} {((x < y) \implies x = min(x,y)) \land (\neg(x < y) \implies y =
+      min(x,y))} \Implied{}
+      \have{} {\texttt{\textbf{if (x < y) \{}}}   
+      \have{} {\Hcond{x = \min(x,y)}} \IfStatement{}
+      \have{} {\quad\texttt{\textbf{z = x;}}}     
+      \have{} {\Hcond{z = \min(x,y)}} \Assignment{}     
+      \have{} {\texttt{\textbf{\} else \{}}}     
+      \have{} {\Hcond{y = \min(x,y)}} \IfStatement{}              
+      \have{} {\quad\texttt{\textbf{z = y;}}}
+      \have{} {\Hcond{z = \min(x,y)}} \Assignment{}   
+      \have{} {\texttt{\textbf{\}}}}   
+      \have{} {\Hcond{z = \min(x,y)}} \IfStatement{}               
+    \end{nd}
+  \end{displaymath}
+  \end{answer}
+\end{enumerate}
+\end{document}
