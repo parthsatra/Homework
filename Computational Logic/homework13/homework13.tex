@@ -1,19 +1,61 @@
-%%This is a very basic article template.
-%%There is just one section and two subsections.
 \documentclass{article}
+\input{503macros.tex}
+\usepackage{stmaryrd}
+
+\def\Sometime{\mathord{\mathsf{F}}}
+\def\Forever{\mathord{\mathsf{G}}}
+\def\Next{\mathord{\mathsf{O}}}
+\def\NextX{\mathord{\mathsf{X}}}
+\def\Until{\mathrel{\mathsf{U}}}
+\def\Release{\mathrel{\mathsf{R}}}
+\def\WeakUntil{\mathrel{\mathsf{W}}}
+\def\Before{\mathrel{\mathsf{B}}}
+\def\True{\mathord{\mathsf{true}}}
+\def\All{\mathord{\mathsf{A}}}
+\def\Exists{\mathord{\mathsf{E}}}
+\def\Every{\mathord{\mathsf{E}}}
+
+\def\True{\mathord{\mathtt{true}}}
+\def\False{\mathord{\mathtt{false}}}
+\def\If{\mathrel{\mathtt{if}}}
+\def\Else{\mathrel{\mathtt{else}}}
+\def\While{\mathrel{\mathtt{while}}}
+\def\IfElse#1#2#3{\If #1 \ \{ #2 \} \Else \{ #3 \}}
+\def\Whiledo#1#2{\While #1\ \{ #2 \}}
+\def\Hcond#1{\llparenthesis #1 \rrparenthesis}
+\def\Hoare#1#2#3{\Hcond{#1} \mathrel{#2} \Hcond{#3}}
+
+\def\parmodels{\mathrel{\models_{\textup{par}}}}
+\def\totmodels{\mathrel{\models_{\textup{tot}}}}
+\def\parturn{\mathrel{\turn_{\textup{par}}}}
+\def\totturn{\mathrel{\turn_{\textup{tot}}}}
+
+\title{CSC 503 Homework Assignment 13}
+\author{Due November 19, 2014}
+\date{November 12, 2014}
 
 \begin{document}
+\maketitle
 
+\begin{enumerate}
 
-\section{Title}
+\item {[40 points]} Find a natural deduction proof in the modal logic
+  KT45 for the statement
+  \begin{displaymath}
+    K \neg K \neg p \iff \neg K \neg p.
+  \end{displaymath}
+  Use the justifications \verb+\KT+, \verb+\Kfour+, and \verb+\Kfive+
+  for the respective KT45 inference rules.
 
-\subsection{Subtitle}
+\item {[60 points]} Find a natural deduction proof in the modal logic
+  KT45$^n$ for the sequent
+  \begin{displaymath}
+    K_2 K_1 (p \lor q),\ 
+    K_2 (\neg q \implies K_1 \neg q),\ 
+    K_2 \neg K_1 p\ 
+    \turn
+    K_2 q.
+  \end{displaymath}
 
-Plain text.
-
-\subsection{Another subtitle}
-
-More plain text.
-
-
+\end{enumerate}
 \end{document}
