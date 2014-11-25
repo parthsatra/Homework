@@ -48,6 +48,31 @@
   modal inference rules, and \verb+\open[K]+ to introduce a modal
   context.  You may use derived rules of inference, including Modus
   Tollens (\verb+\mt+).
-
+	\begin{answer}
+		\[
+			\begin{nd}
+				\open
+					\hypo{1} {K (p \implies q)} \assumption{}
+					\open
+						\hypo{2} {\neg K \neg p} \assumption{}
+						\open
+							\hypo{3} {K \neg q} \assumption{}
+							\open[K] 
+								\have{4} {p \implies q} \Ke {1}
+								\have{5} {\neg q} \Ke {3}
+								\have{6} {\neg p} \mt {4, 5}
+							\close
+							\have{7} {K \neg p} \Ki {4-6}
+							\have{8} {\bot} \ne {2, 7}
+						\close
+						\have{9} {\neg K \neg q} \ni {3, 8}
+					\close
+					\have{10} {\neg K \neg p \implies \neg K \neg q} \ii {2, 9}
+				\close
+				\have{11} {( K (p \implies q)) \implies (\neg K \neg p \implies \neg K \neg
+				q)} \ii {1, 10}
+			\end{nd}
+		\]
+	\end{answer}
 \end{enumerate}
 \end{document}

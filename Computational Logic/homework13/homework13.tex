@@ -46,7 +46,27 @@
   \end{displaymath}
   Use the justifications \verb+\KT+, \verb+\Kfour+, and \verb+\Kfive+
   for the respective KT45 inference rules.
+  
+  \begin{answer}
+  	\[
+  		\begin{nd}
+  			\open
+  				\hypo{1} {\neg K \neg p} \assumption{}
+  				\have{2} {K \neg K \neg p} \Kfive{1}
+  			\close
+  			\have{6} {(\neg K \neg p) \implies (K \neg K \neg p)} \ii{1-2}
+  			\open
+  				\hypo{4} {K \neg K \neg p} \assumption{} 
+  				\have{5} {\neg K \neg p} \KT{4}
+  			\close
+  			\have{3} {(K \neg K \neg p) \implies (\neg K \neg p)} \ii{4-5}
+  			
+  			\have{7} {(K \neg K \neg p \iff \neg K \neg p)} \bi {3,6} 
+  		\end{nd}
+  	\]
+  \end{answer}
 
+\newpage
 \item {[60 points]} Find a natural deduction proof in the modal logic
   KT45$^n$ for the sequent
   \begin{displaymath}
@@ -56,6 +76,42 @@
     \turn
     K_2 q.
   \end{displaymath}
-
+	\begin{answer}
+		\[
+			\begin{nd}
+				\hypo{1} {K_2 K_1 (p \lor q)} \premise{}
+				\hypo{2} {K_2 (\neg q \implies K_1 \neg q)} \premise{}
+				\hypo{3} {K_2 \neg K_1 p} \premise{}
+				\open[K_2]
+					\have{4} {K_1 (p \lor q)} \Ke{1}
+					\have{5} {\neg q \implies K_1 \neg q} \Ke{2}
+					\have{6} {\neg K_1 p} \Ke{3}
+					\open 
+						\hypo{7} {\neg q} \assumption{}
+						\have{8} {K_1 \neg q} \ie{5, 7}
+						\open[K_1]
+							\have{9} {\neg q} \Ke{8}
+							\have{10} {p \lor q} \Ke{4}
+							\open
+								\hypo{11} {p} \assumption{}
+								\have{12} {p} \copy{}
+							\close
+							\open
+								\hypo{13} {q} \assumption{}
+								\have{14} {\bot} \ne{9, 13}
+								\have{15} {p} \be{14}
+							\close
+							\have{16} {p} \oe{10, 11-12, 13-15}
+						\close
+						\have{17} {K_1 p} \Ki{9-16}
+						\have{18} {\bot} \ne{6, 17}
+					\close
+					\have{19} {\neg \neg q} \ni{7-18}
+					\have{20} {q} \nne{19}
+				\close
+				\have{21} {K_2 q} \Ki{4-20}
+			\end{nd}
+		\]
+	\end{answer}
 \end{enumerate}
 \end{document}
